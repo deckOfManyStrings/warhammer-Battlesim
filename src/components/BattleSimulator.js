@@ -23,10 +23,10 @@ export default function BattleSimulator() {
     setBattleLog(prev => [...prev, message]);
   };
 
-  const simulateMeleePhase = (attackers, attackingUnit, defendingUnit, unitName) => {
+  const simulateMeleePhase = (attackers, attackingUnit, defendingUnit) => {
     const weapon = Object.entries(attackingUnit.weapons)
-      .filter(([_, w]) => w.range === 0)
-      .sort(([_, a], [__, b]) => b.strength - a.strength)[0];
+      .filter(([, w]) => w.range === 0)
+      .sort(([, a], [, b]) => b.strength - a.strength)[0];
     
     const [weaponName, weaponStats] = weapon;
     const totalAttacks = attackers * (attackingUnit.attacks + weaponStats.shots);
@@ -61,10 +61,10 @@ export default function BattleSimulator() {
     };
   };
 
-  const simulateShootingPhase = (attackers, attackingUnit, defendingUnit, distance, unitName) => {
+  const simulateShootingPhase = (attackers, attackingUnit, defendingUnit, distance) => {
     const weapon = Object.entries(attackingUnit.weapons)
-      .filter(([_, w]) => w.range >= distance)
-      .sort(([_, a], [__, b]) => b.strength - a.strength)[0];
+      .filter(([, w]) => w.range >= distance)
+      .sort(([, a], [, b]) => b.strength - a.strength)[0];
     
     if (!weapon) return { casualties: 0, rolls: "No weapon in range" };
 
@@ -135,7 +135,7 @@ export default function BattleSimulator() {
       const leftMove = leftUnitStats.movement;
       currentDistance = Math.max(0, currentDistance - leftMove);
       addToLog(`Unit moves ${leftMove}" closer`);
-      addToLog(`New distance: ${currentDistance}"`);
+      addToLog(`            New distance: ${currentDistance}"`);
 
       // Shooting phase
       addToLog('\n- Shooting Phase -');
@@ -320,7 +320,7 @@ export default function BattleSimulator() {
 
       {/* Distance Slider */}
       <div className="p-4 rounded-lg bg-white shadow-md">
-        <h2 className="text-lg font-semibold mb-4">Starting Distance ({distance}")</h2>
+        <h2 className="text-lg font-semibold mb-4">Starting Distance (${distance})</h2>
         <input 
           type="range"
           min="0"
