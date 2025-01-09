@@ -320,7 +320,7 @@ export default function BattleSimulator() {
 
       {/* Distance Slider */}
       <div className="p-4 rounded-lg bg-white shadow-md">
-        <h2 className="text-lg font-semibold mb-4">Starting Distance (${distance})</h2>
+        <h2 className="text-lg font-semibold mb-4">Starting Distance ({distance})</h2>
         <input 
           type="range"
           min="0"
